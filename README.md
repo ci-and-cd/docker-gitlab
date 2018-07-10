@@ -3,6 +3,12 @@
 
   see: https://hub.docker.com/r/gitlab/gitlab-ce/
 
+
+Dockerfile [ci-and-cd/docker-gitlab on Github](https://github.com/ci-and-cd/docker-gitlab)
+
+[cirepo/gitlab on Docker Hub](https://hub.docker.com/r/cirepo/gitlab/)
+
+
 1. Prepare directories and files on host
 
 <del>
