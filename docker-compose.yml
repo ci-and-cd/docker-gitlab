@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+      - IMAGE_ARG_APT_MIRROR=${IMAGE_ARG_APT_MIRROR:-mirrors.163.com}
     container_name: ${GIT_DOMAIN:-gitlab}.${INFRASTRUCTURE:-local}
     hostname: ${GIT_DOMAIN:-gitlab}.${INFRASTRUCTURE:-local}
     image: cirepo/gitlab:10.8.1-ce.0
