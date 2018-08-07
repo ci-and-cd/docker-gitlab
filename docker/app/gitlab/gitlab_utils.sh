@@ -49,7 +49,7 @@ git_root_email(){
 # arguments:
 # returns: git_hostname
 git_hostname() {
-    if [ -z "${GIT_HOSTNAME}" ]; then echo "gitlab.local"; else echo "${GIT_HOSTNAME}"; fi
+    if [ -z "${CONTAINER_HOST_NAME}" ]; then echo "gitlab"; else echo "${CONTAINER_HOST_NAME}"; fi
 }
 
 # arguments:

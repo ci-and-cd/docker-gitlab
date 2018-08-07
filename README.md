@@ -13,14 +13,14 @@ Dockerfile [ci-and-cd/docker-gitlab on Github](https://github.com/ci-and-cd/dock
 
 <del>
 ```
-mkdir -p ${HOME}/.ci-and-cd/gitlab.local/etc/gitlab ${HOME}/.ci-and-cd/gitlab.local/var/opt/gitlab ${HOME}/.ci-and-cd/gitlab.local/var/log/gitlab
-chmod -R 777 ${HOME}/.ci-and-cd/gitlab.local
+mkdir -p ${HOME}/.ci-and-cd/gitlab/etc/gitlab ${HOME}/.ci-and-cd/gitlab/var/opt/gitlab ${HOME}/.ci-and-cd/gitlab/var/log/gitlab
+chmod -R 777 ${HOME}/.ci-and-cd/gitlab
 ```
 </del>
 
 2. Environment variables
 
-  `export GIT_HOSTNAME=gitlab.local`
+  `export CONTAINER_HOST_NAME=gitlab`
 
   Skip auto repo init, this works only after initialized at least once
   `export SKIP_AUTO_REPO_INIT=true`
@@ -28,7 +28,7 @@ chmod -R 777 ${HOME}/.ci-and-cd/gitlab.local
   Set http prot (default 10080)
   `export GIT_HTTP_PORT=10080`
 
-  Default deploy key is same as configserver's deploy key (/app/gitlab/data/default_deploy_key.pub).
+  Default deploy key is same as config-server's deploy key (/app/gitlab/data/default_deploy_key.pub).
   You can change it by mount a new key and set a new value for GIT_DEPLOY_KEY.
   Access gitlab's group_name/repo_name/settings/repository page to manage Deploy Keys.
   `export GIT_DEPLOY_KEY=/etc/gitlab/default_deploy_key.pub`
@@ -44,13 +44,13 @@ automatically.
 4. Entry point methods
 
   Export private key
-  `docker exec gitlab.local /app/gitlab/entrypoint.sh export_git_admin_key > ~/.ssh/gitlab.local && chmod 600 ~/.ssh/gitlab.local`
+  `docker exec gitlab /app/gitlab/entrypoint.sh export_git_admin_key > ~/.ssh/gitlab && chmod 600 ~/.ssh/gitlab`
 
 ## LDAP
 
 - Use docker-compose environment variable GITLAB_OMNIBUS_CONFIG to config.
 
-- or Edit `/etc/gitlab/gitlab.rb` e.g. `docker exec -it gitlab.internal /bin/bash`
+- or Edit `/etc/gitlab/gitlab.rb` e.g. `docker exec -it gitlab /bin/bash`
 
 Make its content like this:
 ```ruby
@@ -61,7 +61,7 @@ Make its content like this:
         gitlab_rails['ldap_servers'] = YAML.load <<-'EOS'
            main: # 'main' is the GitLab 'provider ID' of this LDAP server
              label: 'LDAP'
-             host: 'ldap.internal'
+             host: 'ldap'
              port: 389
              uid: 'cn'
              method: 'plain' # "tls" or "ssl" or "plain"
