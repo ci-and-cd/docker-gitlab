@@ -13,7 +13,7 @@ services:
     networks:
       local-network:
         ipv4_address: 172.16.238.21
-        ipv6_address: 2001:3984:3989::21
+        #ipv6_address: 2001:3984:3989::21
     ports:
     - "${GITLAB_SHELL_SSH_PORT:-20022}:${GITLAB_SHELL_SSH_PORT:-20022}"
     - "${GIT_HTTP_PORT:-10080}:${GIT_HTTP_PORT:-10080}"
@@ -81,7 +81,7 @@ networks:
       driver: default
       config:
       - subnet: 172.16.238.0/24
-      - subnet: 2001:3984:3989::/64
+      #- subnet: 2001:3984:3989::/64
 
 volumes:
   data:
